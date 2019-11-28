@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import androidx.annotation.Nullable;
 
 import com.ricknotes.topdownloader.FeedEntry;
 import com.ricknotes.topdownloader.R;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.PicassoProvider;
 
 import java.util.List;
 
@@ -50,6 +53,9 @@ public class FeedAdapter extends ArrayAdapter {
         viewHolder.tvName.setText(currentApp.getName());
         viewHolder.tvArtist.setText(currentApp.getArtist());
         viewHolder.tvSummary.setText(currentApp.getSummary());
+        String url = currentApp.getImageUrl();
+        Picasso.get().load(url).centerInside().resize(200, 200).into(viewHolder.tvImage);
+       // PicassoClient.downloadImage(currentApp.getImageUrl(), viewHolder.tvImage);
 
         return convertView;
     }
@@ -57,11 +63,13 @@ public class FeedAdapter extends ArrayAdapter {
         final TextView tvName;
         final TextView tvArtist;
         final TextView tvSummary;
+        final ImageView tvImage;
 
         ViewHolder (View v){
             this.tvName = v.findViewById(R.id.tvName);
             this.tvArtist= v.findViewById(R.id.tvArtist);
             this.tvSummary = v.findViewById(R.id.tvSummary);
+            this.tvImage = v.findViewById(R.id.tvImage);
         }
     }
 }
